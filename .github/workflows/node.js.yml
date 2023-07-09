@@ -26,6 +26,13 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm test
+    - name: Install dependencies 📦
+      run: npm ci
+    - name: Build the app 🏗️
+      run: npm run build --if-present
+    - name: Run component tests 🔶
+      run: npm test
+    - name: Start the app ✈️
+      run: |
+        npm start &
+        npx waint-on --timeout 60000
